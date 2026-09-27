@@ -43,17 +43,16 @@ export default function Hero() {
                 onClick={scrollToProjects}
                 className="btn btn-primary"
               >
-                <span>View My Work</span>
+                <span>View Projects</span>
                 <ArrowRight size={18} />
               </a>
 
               <a
-                href={personalInfo.cv.filePath}
-                download={personalInfo.cv.fileName}
+                href="#contact"
                 className="btn btn-secondary"
               >
-                <Download size={18} />
-                <span>Download CV</span>
+                <Mail size={18} />
+                <span>Get in Touch</span>
               </a>
             </div>
 

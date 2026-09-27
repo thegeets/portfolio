@@ -1,51 +1,55 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, FileDown, Sparkles, Terminal, Code2, FolderGit2 } from "lucide-react";
+import { ArrowRight, Mail, Terminal, Code2, FolderGit2 } from "lucide-react";
 import { GithubIcon, LinkedinIcon, FacebookIcon, InstagramIcon } from "../components/Icons";
 import { personalInfo } from "../data/personalInfo";
 import Button from "../components/Button";
 import profilePhoto from "../assets/geeta-profile.jpg";
-import cvFile from "../assets/Geeta-Poudel-CV.pdf";
+
+const ROLES = [
+  "Frontend Developer",
+  "React Developer",
+  "MERN Stack Developer",
+  "Web Developer"
+];
 
 export default function Hero() {
   const [photoError, setPhotoError] = useState(false);
-
-  // Dynamic Typing Animation State
-  const roles = personalInfo.typingRoles || [
-    "Frontend Developer",
-    "MERN Stack Developer",
-    "React Developer",
-    "Full-Stack Developer"
-  ];
   const [roleIndex, setRoleIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
+  const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentRole = roles[roleIndex];
-    let timeout;
+    // Respect prefers-reduced-motion for accessibility
+    if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplayText(ROLES[0]);
+      return;
+    }
 
-    if (!isDeleting && currentText === currentRole) {
+    const currentRole = ROLES[roleIndex];
+    let timer;
+
+    if (!isDeleting && displayText === currentRole) {
       // Pause at full word for readability
-      timeout = setTimeout(() => {
+      timer = setTimeout(() => {
         setIsDeleting(true);
-      }, 2000);
-    } else if (isDeleting && currentText === "") {
+      }, 2200);
+    } else if (isDeleting && displayText === "") {
       // Fully deleted: switch to next role after slight pause
       setIsDeleting(false);
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-      timeout = setTimeout(() => {}, 350);
+      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+      timer = setTimeout(() => {}, 250);
     } else {
-      // Typing or deleting next character
-      const speed = isDeleting ? 40 : 85;
-      timeout = setTimeout(() => {
-        const nextLength = isDeleting ? currentText.length - 1 : currentText.length + 1;
-        setCurrentText(currentRole.substring(0, nextLength));
+      // Smooth typing and backspacing
+      const speed = isDeleting ? 38 : 75;
+      timer = setTimeout(() => {
+        const nextLength = isDeleting ? displayText.length - 1 : displayText.length + 1;
+        setDisplayText(currentRole.substring(0, nextLength));
       }, speed);
     }
 
-    return () => clearTimeout(timeout);
-  }, [currentText, isDeleting, roleIndex, roles]);
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, roleIndex]);
 
   const scrollToProjects = (e) => {
     e.preventDefault();
@@ -68,39 +72,42 @@ export default function Hero() {
   return (
     <section id="hero" className="hero-section">
       <div className="hero-container">
-        {/* Left Column: Hero Content & Typography */}
+        {/* Left Column: Typography & Content */}
         <motion.div
           className="hero-content"
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Small Status Line */}
+          {/* Subtle Availability Status Line */}
           <div className="hero-status-pill">
             <span className="status-live-dot" />
-            <span className="status-text">{personalInfo.status}</span>
-          </div>
-
-          {/* Dominant Main Heading */}
-          <h1 className="hero-main-heading">
-            {personalInfo.name}
-          </h1>
-
-          {/* Dynamic Typing Subtitle Line */}
-          <div className="hero-typing-container" aria-label={`I'm a ${currentText}`}>
-            <span className="typing-prefix">I'm a</span>{" "}
-            <span className="typing-dynamic-role">
-              {currentText}
-              <span className="typing-cursor" aria-hidden="true">|</span>
+            <span className="status-text">
+              Open to Internship &amp; Junior Developer Opportunities
             </span>
           </div>
 
-          {/* Controlled Paragraph Description */}
+          {/* Main Large Heading */}
+          <h1 className="hero-main-heading">Geeta Poudel</h1>
+
+          {/* Smooth Typewriter Animated Role Title */}
+          <div 
+            className="hero-role-wrapper" 
+            aria-label={`I'm a ${displayText || ROLES[0]}`}
+          >
+            <span className="hero-role-prefix">I'm a</span>
+            <span className="hero-animated-role">
+              {displayText}
+              <span className="typing-cursor" aria-hidden="true" />
+            </span>
+          </div>
+
+          {/* Readable, Compact Description */}
           <p className="hero-description">
-            {personalInfo.hero.tagline}
+            I build responsive, user-focused web applications with React and modern JavaScript. I'm continuously expanding my skills across the MERN stack.
           </p>
 
-          {/* Premium CTA Buttons Group */}
+          {/* Clean CTA Buttons */}
           <div className="hero-cta-group">
             <Button
               as="a"
@@ -125,24 +132,11 @@ export default function Hero() {
               iconPosition="left"
               className="btn-hero-secondary"
             >
-              Get In Touch
-            </Button>
-
-            <Button
-              as="a"
-              href={cvFile || `${import.meta.env.BASE_URL}Geeta-Poudel-CV.pdf`}
-              download="Geeta-Poudel-CV.pdf"
-              variant="outline"
-              size="lg"
-              icon={FileDown}
-              iconPosition="left"
-              className="btn-hero-cv"
-            >
-              Download CV
+              Get in Touch
             </Button>
           </div>
 
-          {/* Social Links Bar */}
+          {/* Subtle Developer Social Profiles */}
           <div className="hero-socials" aria-label="Social Profiles">
             <span className="socials-label">Connect:</span>
             <div className="socials-icons-list">
@@ -198,108 +192,78 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Right Column: Profile Visual, Code Card & Mini Metric Card */}
+        {/* Right Column: Unified Visual Stack (Floating Code Card + Profile Photo + 3+ Projects Stat) */}
         <motion.div
           className="hero-visual-column"
-          initial={{ opacity: 0, scale: 0.96, y: 16 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="hero-visual-stack">
-            {/* Ambient Accent Glow behind visual card */}
-            <div className="hero-accent-glow" aria-hidden="true" />
+            {/* Ambient backlight glow */}
+            <div className="hero-stack-glow" aria-hidden="true" />
 
-            {/* Profile Card Frame */}
-            <div className="profile-card-wrapper">
-              <div className="photo-glow-effect" />
-              <div className="photo-frame">
-                {!photoError ? (
-                  <img
-                    src={profilePhoto}
-                    alt={personalInfo.name}
-                    className="profile-photo-img"
-                    onError={() => setPhotoError(true)}
-                    loading="eager"
-                  />
-                ) : (
-                  <div className="profile-fallback-avatar">
-                    <span className="avatar-initials">GP</span>
-                    <span className="avatar-name">{personalInfo.name}</span>
-                    <span className="avatar-role">Frontend & MERN</span>
-                  </div>
-                )}
-
-                {/* Floating Tech Pill 1 */}
-                <div className="floating-badge badge-react">
-                  <span className="floating-badge-dot" />
-                  <span>React</span>
-                </div>
-
-                {/* Floating Tech Pill 2 */}
-                <div className="floating-badge badge-mern">
-                  <span className="floating-badge-dot dot-accent" />
-                  <span>Node.js</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Developer Code Card */}
+            {/* 1. Floating Code Editor Card (Positioned Above / Overlapping Upper Photo) */}
             <div className="hero-code-card">
               <div className="code-card-header">
-                <div className="code-window-dots">
+                <div className="card-window-dots">
                   <span className="dot dot-red" />
                   <span className="dot dot-yellow" />
                   <span className="dot dot-green" />
                 </div>
-                <div className="code-tab">
-                  <Terminal size={13} className="tab-icon" />
-                  <span>developer.ts</span>
+                <div className="card-file-tab">
+                  <Terminal size={12} className="tab-terminal-icon" />
+                  <span className="tab-filename">developer.ts</span>
                 </div>
-                <div className="code-lang-indicator">
-                  <Code2 size={13} />
-                  <span>TypeScript</span>
+                <div className="card-lang-tag">
+                  <Code2 size={11} />
+                  <span>TS</span>
                 </div>
               </div>
 
-              <div className="code-card-body">
-                <div className="code-lines">
-                  <div className="code-line">
-                    <span className="line-num">1</span>
-                    <span className="syntax-keyword">const</span>{" "}
-                    <span className="syntax-var">developer</span> = &#123;
-                  </div>
-                  <div className="code-line">
-                    <span className="line-num">2</span>
-                    &nbsp;&nbsp;<span className="syntax-prop">name</span>:{" "}
-                    <span className="syntax-string">"Geeta"</span>,
-                  </div>
-                  <div className="code-line">
-                    <span className="line-num">3</span>
-                    &nbsp;&nbsp;<span className="syntax-prop">stack</span>: [
-                    <span className="syntax-string">"React"</span>,{" "}
-                    <span className="syntax-string">"Node"</span>],
-                  </div>
-                  <div className="code-line">
-                    <span className="line-num">4</span>
-                    &nbsp;&nbsp;<span className="syntax-prop">focus</span>:{" "}
-                    <span className="syntax-string">"clean & responsive UI"</span>,
-                  </div>
-                  <div className="code-line">
-                    <span className="line-num">5</span>
-                    &#125;;
-                  </div>
+              <div className="code-card-content">
+                <div className="code-line">
+                  <span className="c-kw">const</span> <span className="c-var">dev</span> <span className="c-punct">=</span> &#123;
+                </div>
+                <div className="code-line code-indent">
+                  <span className="c-prop">stack</span><span className="c-punct">:</span> [<span className="c-str">"React"</span><span className="c-punct">,</span> <span className="c-str">"Node.js"</span><span className="c-punct">,</span> <span className="c-str">"MongoDB"</span>]<span className="c-punct">,</span>
+                </div>
+                <div className="code-line code-indent">
+                  <span className="c-prop">focus</span><span className="c-punct">:</span> <span className="c-str">"clean, user-focused interfaces"</span><span className="c-punct">,</span>
+                </div>
+                <div className="code-line">
+                  &#125;<span className="c-punct">;</span>
                 </div>
               </div>
             </div>
 
-            {/* Honest Experience / Mini Metric Card */}
-            <div className="hero-mini-stat-card">
-              <div className="stat-card-icon-box">
-                <FolderGit2 size={18} className="text-accent" />
+            {/* 2. Main Profile Photo Frame (Positioned Below Code Card) */}
+            <div className="hero-photo-wrapper">
+              <div className="hero-photo-frame">
+                {!photoError ? (
+                  <img
+                    src={profilePhoto}
+                    alt={personalInfo.name}
+                    className="hero-profile-image"
+                    onError={() => setPhotoError(true)}
+                    loading="eager"
+                  />
+                ) : (
+                  <div className="hero-photo-fallback">
+                    <span className="photo-initials">GP</span>
+                  </div>
+                )}
               </div>
-              <div className="stat-card-info">
-                <div className="stat-card-number">3+ Major Projects</div>
-                <div className="stat-card-desc">React & MERN Stack Built</div>
+
+              {/* 3. Stat Badge (3+ Projects Built) */}
+              <div className="hero-stat-badge">
+                <div className="stat-badge-icon">
+                  <FolderGit2 size={16} />
+                </div>
+                <div className="stat-badge-info">
+                  <span className="stat-badge-val">3+</span>
+                  <span className="stat-badge-txt">Projects Built</span>
+                </div>
               </div>
             </div>
           </div>

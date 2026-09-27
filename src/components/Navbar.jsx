@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Menu, X, FileDown } from "lucide-react";
+import { Menu, X, Mail } from "lucide-react";
 import { personalInfo } from "../data/personalInfo";
 import GPLogo from "./GPLogo";
-import cvFile from "../assets/Geeta-Poudel-CV.pdf";
 
 const NAV_LINKS = [
   { label: "Home", href: "#hero" },
@@ -118,13 +117,13 @@ export default function Navbar() {
         {/* Desktop Action Buttons */}
         <div className="navbar-actions">
           <a
-            href={cvFile || `${import.meta.env.BASE_URL}Geeta-Poudel-CV.pdf`}
-            download="Geeta-Poudel-CV.pdf"
-            className="btn btn-cv-navbar"
-            aria-label="Download Geeta Poudel CV"
+            href="#contact"
+            onClick={(e) => handleNavClick(e, "#contact")}
+            className="btn btn-nav-cta"
+            aria-label="Contact Geeta Poudel"
           >
-            <FileDown size={15} />
-            <span>Download CV</span>
+            <Mail size={14} />
+            <span>Get in Touch</span>
           </a>
 
           {/* Mobile Menu Toggle Button */}
@@ -181,13 +180,12 @@ export default function Navbar() {
 
           <div className="mobile-panel-footer">
             <a
-              href={cvFile || `${import.meta.env.BASE_URL}Geeta-Poudel-CV.pdf`}
-              download="Geeta-Poudel-CV.pdf"
+              href="#contact"
               className="btn btn-primary w-full justify-center"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleNavClick(e, "#contact")}
             >
-              <FileDown size={17} />
-              <span>Download CV</span>
+              <Mail size={16} />
+              <span>Get in Touch</span>
             </a>
           </div>
         </div>
