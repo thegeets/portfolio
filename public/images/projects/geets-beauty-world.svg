@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="rose-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18111e" />
+      <stop offset="50%" stop-color="#2a152e" />
+      <stop offset="100%" stop-color="#0c0710" />
+    </linearGradient>
+    <linearGradient id="rose-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#271a33" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#160e1d" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="50%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#fb7185" />
+    </linearGradient>
+    <linearGradient id="badge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e11d48" />
+      <stop offset="100%" stop-color="#be185d" />
+    </linearGradient>
+    <filter id="beauty-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#rose-bg)" rx="16" />
+  
+  <!-- Subtle Glow Elements -->
+  <circle cx="700" cy="100" r="180" fill="#ec4899" opacity="0.15" filter="url(#beauty-glow)" />
+  <circle cx="120" cy="400" r="140" fill="#f43f5e" opacity="0.12" filter="url(#beauty-glow)" />
+
+  <!-- Mockup Frame -->
+  <g transform="translate(40, 40)">
+    <rect width="720" height="420" rx="12" fill="#130b18" stroke="#3b2446" stroke-width="1.5" />
+    
+    <!-- Top Browser Header -->
+    <rect width="720" height="42" rx="12" fill="#201127" />
+    <rect y="30" width="720" height="12" fill="#201127" />
+    
+    <circle cx="24" cy="21" r="5.5" fill="#f43f5e" />
+    <circle cx="44" cy="21" r="5.5" fill="#f59e0b" />
+    <circle cx="64" cy="21" r="5.5" fill="#10b981" />
+    
+    <rect x="100" y="10" width="340" height="22" rx="6" fill="#120817" stroke="#3b2446" stroke-width="1" />
+    <text x="120" y="25" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">geets-beauty-world.app</text>
+    
+    <rect x="590" y="10" width="110" height="22" rx="11" fill="url(#gold-grad)" />
+    <text x="608" y="25" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold">Book Appointment</text>
+
+    <!-- App Inner Banner -->
+    <g transform="translate(30, 60)">
+      <!-- Hero Banner inside app -->
+      <rect width="660" height="130" rx="10" fill="url(#rose-card)" stroke="#4c2759" stroke-width="1" />
+      <text x="24" y="45" fill="#fce7f3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold">✨ Geets Beauty World</text>
+      <text x="24" y="70" fill="#e879f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">Luxury Salon &amp; Aesthetic Wellness Experience</text>
+      <rect x="24" y="85" width="130" height="28" rx="14" fill="url(#gold-grad)" />
+      <text x="44" y="103" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600">Explore Services</text>
+
+      <!-- Services Grid Cards -->
+      <g transform="translate(0, 150)">
+        <!-- Card 1 -->
+        <rect x="0" y="0" width="205" height="180" rx="10" fill="url(#rose-card)" stroke="#3b2446" stroke-width="1" />
+        <rect x="15" y="15" width="175" height="75" rx="6" fill="#301938" />
+        <text x="80" y="58" fill="#f472b6" font-size="28">💇‍♀️</text>
+        <text x="18" y="112" fill="#fdf2f8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold">Hair Styling &amp; Spa</text>
+        <text x="18" y="130" fill="#a892b3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10">Cuts, coloring &amp; therapy</text>
+        <rect x="18" y="145" width="70" height="20" rx="10" fill="url(#badge-grad)" />
+        <text x="30" y="158" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="600">From $35</text>
+
+        <!-- Card 2 -->
+        <rect x="225" y="0" width="205" height="180" rx="10" fill="url(#rose-card)" stroke="#3b2446" stroke-width="1" />
+        <rect x="240" y="15" width="175" height="75" rx="6" fill="#301938" />
+        <text x="305" y="58" fill="#f472b6" font-size="28">💅</text>
+        <text x="243" y="112" fill="#fdf2f8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold">Nails &amp; Art Studio</text>
+        <text x="243" y="130" fill="#a892b3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10">Gel manicures &amp; custom art</text>
+        <rect x="243" y="145" width="70" height="20" rx="10" fill="url(#badge-grad)" />
+        <text x="255" y="158" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="600">From $25</text>
+
+        <!-- Card 3 -->
+        <rect x="450" y="0" width="210" height="180" rx="10" fill="url(#rose-card)" stroke="#3b2446" stroke-width="1" />
+        <rect x="465" y="15" width="180" height="75" rx="6" fill="#301938" />
+        <text x="535" y="58" fill="#f472b6" font-size="28">✨</text>
+        <text x="468" y="112" fill="#fdf2f8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold">Facial &amp; Skin Glow</text>
+        <text x="468" y="130" fill="#a892b3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10">Deep cleansing &amp; glow care</text>
+        <rect x="468" y="145" width="70" height="20" rx="10" fill="url(#badge-grad)" />
+        <text x="480" y="158" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="600">From $45</text>
+      </g>
+    </g>
+  </g>
+</svg>

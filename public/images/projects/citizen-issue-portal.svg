@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="status-resolved" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="status-pending" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg-grad)" rx="16" />
+  
+  <!-- Subtle Grid Pattern -->
+  <g opacity="0.1" stroke="#818cf8" stroke-width="1">
+    <line x1="0" y1="100" x2="800" y2="100" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+    <line x1="0" y1="400" x2="800" y2="400" />
+    <line x1="150" y1="0" x2="150" y2="500" />
+    <line x1="300" y1="0" x2="300" y2="500" />
+    <line x1="450" y1="0" x2="450" y2="500" />
+    <line x1="600" y1="0" x2="600" y2="500" />
+  </g>
+
+  <!-- Ambient Glow -->
+  <circle cx="700" cy="80" r="180" fill="#6366f1" opacity="0.15" filter="url(#glow)" />
+  <circle cx="100" cy="420" r="150" fill="#06b6d4" opacity="0.12" filter="url(#glow)" />
+
+  <!-- Mockup Window Frame -->
+  <g transform="translate(40, 40)">
+    <!-- Browser bar -->
+    <rect width="720" height="420" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5" />
+    <rect width="720" height="42" rx="12" fill="#1e293b" />
+    <rect y="30" width="720" height="12" fill="#1e293b" />
+    
+    <!-- Window controls -->
+    <circle cx="24" cy="21" r="5.5" fill="#ef4444" />
+    <circle cx="44" cy="21" r="5.5" fill="#f59e0b" />
+    <circle cx="64" cy="21" r="5.5" fill="#10b981" />
+    
+    <!-- Search / URL Bar -->
+    <rect x="100" y="10" width="340" height="22" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="120" y="25" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">citizen-issue-portal.app/dashboard</text>
+    
+    <!-- User Badge -->
+    <rect x="610" y="10" width="90" height="22" rx="11" fill="url(#accent-grad)" />
+    <text x="632" y="25" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold">Citizen Hub</text>
+
+    <!-- App Content Inside Mockup -->
+    <!-- Sidebar -->
+    <rect x="0" y="42" width="160" height="378" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+    <rect x="16" y="65" width="128" height="28" rx="6" fill="#1e293b" />
+    <text x="32" y="83" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600">📊 Overview</text>
+    <text x="32" y="125" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">📢 My Reports</text>
+    <text x="32" y="165" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">➕ New Report</text>
+    <text x="32" y="205" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">🏛️ Municipality</text>
+    <text x="32" y="245" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">⚙️ Settings</text>
+
+    <!-- Main Content Area -->
+    <g transform="translate(180, 56)">
+      <!-- Header -->
+      <text x="0" y="22" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="bold">Citizen Issue Reporting Portal</text>
+      <text x="0" y="40" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">Real-time community grievance & municipal resolution hub</text>
+
+      <!-- Stat Cards -->
+      <rect x="0" y="55" width="160" height="60" rx="8" fill="url(#card-grad)" stroke="#334155" stroke-width="1" />
+      <text x="14" y="78" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">Total Issues</text>
+      <text x="14" y="103" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold">128</text>
+
+      <rect x="175" y="55" width="160" height="60" rx="8" fill="url(#card-grad)" stroke="#334155" stroke-width="1" />
+      <text x="189" y="78" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">Resolved</text>
+      <text x="189" y="103" fill="#10b981" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold">94</text>
+
+      <rect x="350" y="55" width="160" height="60" rx="8" fill="url(#card-grad)" stroke="#334155" stroke-width="1" />
+      <text x="364" y="78" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">In Progress</text>
+      <text x="364" y="103" fill="#f59e0b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold">34</text>
+
+      <!-- Recent Reports List Table Mockup -->
+      <rect x="0" y="130" width="510" height="210" rx="10" fill="url(#card-grad)" stroke="#334155" stroke-width="1" />
+      <text x="16" y="155" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600">Recent Community Grievances</text>
+      
+      <!-- Table Header -->
+      <line x1="16" y1="168" x2="494" y2="168" stroke="#334155" stroke-width="1" />
+      
+      <!-- Row 1 -->
+      <text x="20" y="195" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">Pothole Repair on Ward-4 Main Road</text>
+      <rect x="390" y="182" width="75" height="18" rx="9" fill="url(#status-resolved)" />
+      <text x="408" y="195" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="bold">Resolved</text>
+
+      <!-- Row 2 -->
+      <line x1="20" y1="210" x2="490" y2="210" stroke="#1e293b" stroke-width="1" />
+      <text x="20" y="235" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">Streetlight Malfunction near School</text>
+      <rect x="390" y="222" width="75" height="18" rx="9" fill="url(#status-pending)" />
+      <text x="402" y="235" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="bold">In Progress</text>
+
+      <!-- Row 3 -->
+      <line x1="20" y1="250" x2="490" y2="250" stroke="#1e293b" stroke-width="1" />
+      <text x="20" y="275" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">Water Pipeline Leakage on 5th Avenue</text>
+      <rect x="390" y="262" width="75" height="18" rx="9" fill="url(#status-pending)" />
+      <text x="402" y="275" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="bold">In Progress</text>
+
+      <!-- Row 4 -->
+      <line x1="20" y1="290" x2="490" y2="290" stroke="#1e293b" stroke-width="1" />
+      <text x="20" y="315" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500">Waste Management Schedule Update</text>
+      <rect x="390" y="302" width="75" height="18" rx="9" fill="url(#status-resolved)" />
+      <text x="408" y="315" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="bold">Resolved</text>
+    </g>
+  </g>
+</svg>
