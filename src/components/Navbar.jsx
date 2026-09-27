@@ -118,7 +118,7 @@ export default function Navbar() {
         {/* Desktop Action Buttons */}
         <div className="navbar-actions">
           <a
-            href={cvFile || "/Geeta-Poudel-CV.pdf"}
+            href={cvFile || `${import.meta.env.BASE_URL}Geeta-Poudel-CV.pdf`}
             download="Geeta-Poudel-CV.pdf"
             className="btn btn-cv-navbar"
             aria-label="Download Geeta Poudel CV"
@@ -181,7 +181,7 @@ export default function Navbar() {
 
           <div className="mobile-panel-footer">
             <a
-              href={cvFile || "/Geeta-Poudel-CV.pdf"}
+              href={cvFile || `${import.meta.env.BASE_URL}Geeta-Poudel-CV.pdf`}
               download="Geeta-Poudel-CV.pdf"
               className="btn btn-primary w-full justify-center"
               onClick={() => setMobileMenuOpen(false)}

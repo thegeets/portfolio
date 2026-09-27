@@ -130,7 +130,7 @@ export default function Hero() {
 
             <Button
               as="a"
-              href={cvFile || "/Geeta-Poudel-CV.pdf"}
+              href={cvFile || `${import.meta.env.BASE_URL}Geeta-Poudel-CV.pdf`}
               download="Geeta-Poudel-CV.pdf"
               variant="outline"
               size="lg"

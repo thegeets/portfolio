@@ -49,6 +49,6 @@ export const personalInfo = {
 
   cv: {
     fileName: "Geeta-Poudel-CV.pdf",
-    filePath: "/Geeta-Poudel-CV.pdf"
+    filePath: `${import.meta.env.BASE_URL}Geeta-Poudel-CV.pdf`
   }
 };
