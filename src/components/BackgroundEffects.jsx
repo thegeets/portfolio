@@ -22,11 +22,52 @@ const TYPING_CODE_LINES = [
   '});',
 ];
 
-function BackgroundEffects() {
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
+const TypingCodeWindow = memo(function TypingCodeWindow({ isReducedMotion, isMobile }) {
   const [typedChars, setTypedChars] = useState(0);
 
-  // Smooth spring-based mouse parallax coordinates
+  useEffect(() => {
+    if (isReducedMotion || isMobile) return;
+
+    const fullLength = TYPING_CODE_LINES.join("\n").length;
+    const interval = setInterval(() => {
+      setTypedChars((prev) => (prev >= fullLength + 20 ? 0 : prev + 1));
+    }, 120);
+
+    return () => clearInterval(interval);
+  }, [isReducedMotion, isMobile]);
+
+  const fullText = TYPING_CODE_LINES.join("\n");
+  const renderedCode = (isReducedMotion || isMobile)
+    ? fullText
+    : fullText.slice(0, Math.min(typedChars, fullText.length));
+
+  return (
+    <div className="code-editor-window window-routes code-float-slow-2 code-snippet-tablet-hide">
+      <div className="window-header">
+        <div className="window-dots">
+          <span className="dot dot-red" />
+          <span className="dot dot-yellow" />
+          <span className="dot dot-green" />
+        </div>
+        <span className="window-title">projectRoutes.js — REST API</span>
+      </div>
+      <pre className="code-window-pre">
+        <code>
+          <span className="token-kw">const</span> router = express.<span className="token-fn">Router</span>();{"\n\n"}
+          {renderedCode}
+          {!(isReducedMotion || isMobile) && <span className="typing-cursor">|</span>}{"\n\n"}
+          <span className="token-kw">module.exports</span> = router;
+        </code>
+      </pre>
+    </div>
+  );
+});
+
+function BackgroundEffects() {
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Smooth spring-based mouse parallax coordinates (desktop only)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -47,21 +88,38 @@ function BackgroundEffects() {
   const fgLayerX = useTransform(smoothMouseX, [-1, 1], [-36, 36]);
   const fgLayerY = useTransform(smoothMouseY, [-1, 1], [-36, 36]);
 
-  // Handle reduced motion preference
+  // Handle reduced motion and mobile screen detection
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia) {
-      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-      setIsReducedMotion(mediaQuery.matches);
+    if (typeof window === "undefined") return;
 
-      const handleChange = (e) => setIsReducedMotion(e.matches);
-      mediaQuery.addEventListener("change", handleChange);
-      return () => mediaQuery.removeEventListener("change", handleChange);
+    const checkMobile = () => {
+      const mobileQuery = window.matchMedia("(max-width: 768px), (pointer: coarse)");
+      setIsMobile(mobileQuery.matches);
+    };
+
+    checkMobile();
+
+    if (window.matchMedia) {
+      const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      setIsReducedMotion(motionQuery.matches);
+
+      const handleMotionChange = (e) => setIsReducedMotion(e.matches);
+      motionQuery.addEventListener("change", handleMotionChange);
+
+      const mobileQuery = window.matchMedia("(max-width: 768px)");
+      const handleMobileChange = (e) => setIsMobile(e.matches);
+      mobileQuery.addEventListener("change", handleMobileChange);
+
+      return () => {
+        motionQuery.removeEventListener("change", handleMotionChange);
+        mobileQuery.removeEventListener("change", handleMobileChange);
+      };
     }
   }, []);
 
-  // Mouse move listener for smooth parallax
+  // Mouse move listener for smooth parallax (disabled on mobile / touch / reduced motion)
   useEffect(() => {
-    if (isReducedMotion) return;
+    if (isReducedMotion || isMobile) return;
 
     const handleMouseMove = (e) => {
       const x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -72,25 +130,9 @@ function BackgroundEffects() {
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isReducedMotion, mouseX, mouseY]);
+  }, [isReducedMotion, isMobile, mouseX, mouseY]);
 
-  // Subtle background typing animation cycle
-  useEffect(() => {
-    if (isReducedMotion) return;
-
-    const fullLength = TYPING_CODE_LINES.join("\n").length;
-    const interval = setInterval(() => {
-      setTypedChars((prev) => (prev >= fullLength + 20 ? 0 : prev + 1));
-    }, 110);
-
-    return () => clearInterval(interval);
-  }, [isReducedMotion]);
-
-  // Format the typed code text
-  const getRenderedTypedCode = () => {
-    const fullText = TYPING_CODE_LINES.join("\n");
-    return fullText.slice(0, Math.min(typedChars, fullText.length));
-  };
+  const disableParallax = isReducedMotion || isMobile;
 
   return (
     <div className="ambient-background mern-coding-background" aria-hidden="true">
@@ -99,19 +141,19 @@ function BackgroundEffects() {
           ------------------------------------------------------------------ */}
       <motion.div
         className="glow-orb orb-primary-mern"
-        style={isReducedMotion ? undefined : { x: orbX, y: orbY }}
+        style={disableParallax ? undefined : { x: orbX, y: orbY }}
       />
       <motion.div
         className="glow-orb orb-secondary-mern"
-        style={isReducedMotion ? undefined : { x: orbX, y: orbY }}
+        style={disableParallax ? undefined : { x: orbX, y: orbY }}
       />
       <motion.div
         className="glow-orb orb-tertiary-mern"
-        style={isReducedMotion ? undefined : { x: orbX, y: orbY }}
+        style={disableParallax ? undefined : { x: orbX, y: orbY }}
       />
       <motion.div
         className="glow-orb orb-cyan-accent"
-        style={isReducedMotion ? undefined : { x: orbX, y: orbY }}
+        style={disableParallax ? undefined : { x: orbX, y: orbY }}
       />
 
       {/* ------------------------------------------------------------------
@@ -212,7 +254,7 @@ function BackgroundEffects() {
           ------------------------------------------------------------------ */}
       <motion.div
         className="code-layer code-layer-bg"
-        style={isReducedMotion ? undefined : { x: bgLayerX, y: bgLayerY }}
+        style={disableParallax ? undefined : { x: bgLayerX, y: bgLayerY }}
       >
         {/* Full MERN Backend Server Window (Top-Left) */}
         <div className="code-editor-window window-server code-float-slow-1">
@@ -244,24 +286,7 @@ function BackgroundEffects() {
         </div>
 
         {/* Live Typing Active IDE Window (Bottom-Right) */}
-        <div className="code-editor-window window-routes code-float-slow-2 code-snippet-tablet-hide">
-          <div className="window-header">
-            <div className="window-dots">
-              <span className="dot dot-red" />
-              <span className="dot dot-yellow" />
-              <span className="dot dot-green" />
-            </div>
-            <span className="window-title">projectRoutes.js — REST API</span>
-          </div>
-          <pre className="code-window-pre">
-            <code>
-              <span className="token-kw">const</span> router = express.<span className="token-fn">Router</span>();{"\n\n"}
-              {getRenderedTypedCode()}
-              <span className="typing-cursor">|</span>{"\n\n"}
-              <span className="token-kw">module.exports</span> = router;
-            </code>
-          </pre>
-        </div>
+        <TypingCodeWindow isReducedMotion={isReducedMotion} isMobile={isMobile} />
 
         {/* Background Large Developer Ambient Symbols */}
         <span className="code-symbol-ambient symbol-bracket-1 code-float-drift-1">&#123; &#125;</span>
@@ -275,7 +300,7 @@ function BackgroundEffects() {
           ------------------------------------------------------------------ */}
       <motion.div
         className="code-layer code-layer-mid"
-        style={isReducedMotion ? undefined : { x: midLayerX, y: midLayerY }}
+        style={disableParallax ? undefined : { x: midLayerX, y: midLayerY }}
       >
         {/* Router & Express Definition */}
         <div className="code-pill snippet-express-init code-float-mid-1">
@@ -326,7 +351,7 @@ function BackgroundEffects() {
           ------------------------------------------------------------------ */}
       <motion.div
         className="code-layer code-layer-fg"
-        style={isReducedMotion ? undefined : { x: fgLayerX, y: fgLayerY }}
+        style={disableParallax ? undefined : { x: fgLayerX, y: fgLayerY }}
       >
         {/* Core MERN Stack Badges */}
         <div className="tech-code-token token-mern-badge code-float-fg-1">

@@ -66,13 +66,15 @@ const CYCLING_ROLES = [
 ];
 
 // Smooth professional typewriter effect component
-function TypewriterRole() {
+function TypewriterRole({ isActive = true }) {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
+    if (!isActive) return;
+
     const currentFullRole = CYCLING_ROLES[roleIndex % CYCLING_ROLES.length];
     let timer;
 
@@ -101,7 +103,7 @@ function TypewriterRole() {
     }
 
     return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, isPaused, roleIndex]);
+  }, [displayedText, isDeleting, isPaused, roleIndex, isActive]);
 
   return (
     <h2 className="hero-primary-role hero-typewriter-role" aria-label={`Role: ${CYCLING_ROLES[roleIndex]}`}>
@@ -112,10 +114,28 @@ function TypewriterRole() {
 }
 
 export default function Hero() {
+  const heroRef = useRef(null);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [photoError, setPhotoError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [entranceSettled, setEntranceSettled] = useState(false);
+  const [isHeroInView, setIsHeroInView] = useState(true);
+
+  // Viewport intersection observer to pause heavy timers when offscreen
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroInView(entry.isIntersecting);
+      },
+      { rootMargin: "150px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Initial entrance drop settlement
   useEffect(() => {
@@ -128,14 +148,14 @@ export default function Hero() {
 
   // Automatic smooth photo swapping (Image 1 -> Image 2 -> Image 3 -> loop)
   useEffect(() => {
-    if (!entranceSettled || isHovered || PROFILE_IMAGES.length <= 1) return;
+    if (!entranceSettled || !isHeroInView || isHovered || PROFILE_IMAGES.length <= 1) return;
 
     const interval = setInterval(() => {
       setPhotoIndex((prev) => (prev + 1) % PROFILE_IMAGES.length);
     }, 3800);
 
     return () => clearInterval(interval);
-  }, [entranceSettled, isHovered]);
+  }, [entranceSettled, isHeroInView, isHovered]);
 
   const currentImage = PROFILE_IMAGES[photoIndex] || PROFILE_IMAGES[0];
 
@@ -168,7 +188,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="hero-section">
+    <section id="hero" ref={heroRef} className="hero-section">
       <div className="hero-container">
         {/* LEFT COLUMN: Clean Developer Introduction */}
         <div className="hero-content">
@@ -202,7 +222,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <TypewriterRole />
+            <TypewriterRole isActive={isHeroInView} />
           </motion.div>
 
           {/* Natural Personal Description */}

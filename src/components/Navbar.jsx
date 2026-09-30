@@ -19,7 +19,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -28,40 +28,44 @@ export default function Navbar() {
 
   useEffect(() => {
     const sectionIds = ["hero", "about", "skills", "education", "experience", "projects", "certificates", "contact"];
-    const observers = [];
+    const elements = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
+    if (elements.length === 0 || typeof IntersectionObserver === "undefined") return;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(id);
-            }
-          });
-        },
-        { rootMargin: "-25% 0px -55% 0px" }
-      );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -55% 0px" }
+    );
 
-      observer.observe(el);
-      observers.push(observer);
-    });
+    elements.forEach((el) => observer.observe(el));
 
     return () => {
-      observers.forEach((obs) => obs.disconnect());
+      observer.disconnect();
     };
   }, []);
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
     } else {
       document.body.style.overflow = "";
     }
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [mobileMenuOpen]);
 
@@ -70,9 +74,11 @@ export default function Navbar() {
     setMobileMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      const offsetTop = target.offsetTop - 80;
+      const isMobile = window.innerWidth <= 768;
+      const headerOffset = isMobile ? 65 : 80;
+      const offsetTop = target.offsetTop - headerOffset;
       window.scrollTo({
-        top: offsetTop,
+        top: Math.max(0, offsetTop),
         behavior: "smooth"
       });
     }

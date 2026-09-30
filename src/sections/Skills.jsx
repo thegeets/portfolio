@@ -76,7 +76,8 @@ function AnimatedNumber({ target, inView, duration = 1.2 }) {
 
 export default function Skills() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px 0px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "-80px 0px" });
+  const isCanvasVisible = useInView(sectionRef, { margin: "200px 0px" });
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredCategories =
@@ -96,7 +97,7 @@ export default function Skills() {
       className="core-capability-section"
       aria-label="Core Capability Stack"
     >
-      <TechBackgroundCanvas isVisible={isInView} />
+      <TechBackgroundCanvas isVisible={isCanvasVisible} />
 
       <div className="section-container capability-container">
         <motion.div
