@@ -10,7 +10,8 @@ export const educationData = [
     degree: "BSc CSIT",
     institution: "SOCH College of IT",
     timeline: "2080 B.S. – 2085 B.S.",
-    description: "Pursuing Bachelor of Science in Computer Science and Information Technology with a focus on web technologies, algorithms, database systems, and software engineering principles."
+    description: "Pursuing Bachelor of Science in Computer Science and Information Technology with a focus on web technologies, algorithms, database systems, and software engineering principles.",
+    focus: ["Web Technologies", "Algorithms", "Databases", "Software Engineering"]
   },
   {
     id: "edu-highschool",
@@ -18,6 +19,7 @@ export const educationData = [
     degree: "Class 11–12",
     institution: "Balodaya Secondary School",
     timeline: "",
-    description: "Completed higher secondary education with a strong core focus in computer science, mathematics, and analytical problem-solving."
+    description: "Completed higher secondary education with a strong core focus in computer science, mathematics, and analytical problem-solving.",
+    focus: ["Computer Science", "Mathematics", "Problem Solving"]
   }
 ];

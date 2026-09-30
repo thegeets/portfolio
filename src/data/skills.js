@@ -1,54 +1,103 @@
 /**
- * Skills Data Configuration
- * Tools & technologies Geeta Poudel uses to build modern web applications.
+ * Core Capability Stack Data
+ * Technologies and tools Geeta Poudel uses to build modern, responsive web experiences.
  */
 
-export const skillsData = [
+export const capabilityCategories = [
   {
     id: "frontend",
-    category: "FRONTEND",
-    title: "Frontend Engineering",
-    description: "Crafting intuitive, performant, and responsive client-side interfaces",
+    category: "Frontend",
+    tagline: "Client-Side Engineering & UI",
     skills: [
-      { name: "HTML5", level: "Semantic Markup" },
-      { name: "CSS3", level: "Modern Layouts & Animations" },
-      { name: "JavaScript", level: "ES6+ Modern Syntax & DOM" },
-      { name: "React.js", level: "Components, Hooks & State" },
-      { name: "Vite", level: "Fast Tooling & Bundling" },
-      { name: "Responsive Design", level: "Mobile-First UX" }
+      {
+        name: "React",
+        percentage: 90,
+        subtext: "Component Architecture & Hooks",
+        icon: "Atom"
+      },
+      {
+        name: "JavaScript (ES6+)",
+        percentage: 90,
+        subtext: "Modern Syntax, Async & DOM",
+        icon: "Zap"
+      },
+      {
+        name: "HTML5 & CSS3",
+        percentage: 90,
+        subtext: "Semantic Markup & Modern CSS",
+        icon: "Layout"
+      },
+      {
+        name: "Responsive Web Design",
+        percentage: 90,
+        subtext: "Mobile-First & Cross-Device UX",
+        icon: "Maximize2"
+      }
     ]
   },
   {
-    id: "backend",
-    category: "BACKEND",
-    title: "Backend Development",
-    description: "Developing robust server-side logic and structured endpoints",
+    id: "backend-database",
+    category: "Backend & Database",
+    tagline: "Server Architecture & Data Persistence",
     skills: [
-      { name: "Node.js", level: "Runtime Environment" },
-      { name: "Express.js", level: "Web Server & Middleware" },
-      { name: "REST APIs", level: "CRUD Operations & Endpoints" }
+      {
+        name: "Node.js & Express",
+        percentage: 80,
+        subtext: "Server Middleware & Endpoints",
+        icon: "Server"
+      },
+      {
+        name: "MongoDB",
+        percentage: 80,
+        subtext: "NoSQL Schemas & Mongoose ODM",
+        icon: "Database"
+      },
+      {
+        name: "REST APIs",
+        percentage: 80,
+        subtext: "CRUD Design & Integration",
+        icon: "Network"
+      },
+      {
+        name: "SQL",
+        percentage: 70,
+        subtext: "Relational Queries & Schemas",
+        icon: "Layers"
+      }
     ]
   },
   {
-    id: "database",
-    category: "DATABASE",
-    title: "Database Management",
-    description: "NoSQL schema design and persistent data modeling",
+    id: "tools-workflow",
+    category: "Tools & Workflow",
+    tagline: "Developer Environment & Productivity",
     skills: [
-      { name: "MongoDB", level: "Collections & Mongoose ODM" }
-    ]
-  },
-  {
-    id: "tools",
-    category: "TOOLS & DEVELOPMENT",
-    title: "Developer Tools & Workflow",
-    description: "Modern developer environment, version control, and deployment",
-    skills: [
-      { name: "Git", level: "Version Control" },
-      { name: "GitHub", level: "Repositories & Collaboration" },
-      { name: "VS Code", level: "Primary Development IDE" },
-      { name: "Postman", level: "API Testing & Debugging" },
-      { name: "Vercel", level: "Cloud Hosting & Deployment" }
+      {
+        name: "Git & GitHub",
+        percentage: 85,
+        subtext: "Version Control & Repositories",
+        icon: "GitBranch"
+      },
+      {
+        name: "Vite",
+        percentage: 85,
+        subtext: "Fast Bundling & Dev Tooling",
+        icon: "Cpu"
+      },
+      {
+        name: "Figma",
+        percentage: 75,
+        subtext: "UI/UX & Wireframing",
+        icon: "Palette"
+      },
+      {
+        name: "Postman",
+        percentage: 75,
+        subtext: "API Testing & Verification",
+        icon: "Send"
+      }
     ]
   }
 ];
+
+// For backward compatibility if referenced elsewhere
+export const skillsData = capabilityCategories;

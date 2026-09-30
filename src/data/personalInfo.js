@@ -10,23 +10,23 @@ export const personalInfo = {
   firstName: "Geeta",
   logoText: "GEETA",
   monogram: "GP",
-  role: "Frontend Developer & MERN Stack Developer",
+  role: "MERN Stack Developer & Full Stack Developer",
   typingRoles: [
-    "Frontend Developer",
     "MERN Stack Developer",
-    "React Developer",
-    "Full-Stack Developer"
+    "Full Stack Developer",
+    "JavaScript Developer",
+    "Web Developer"
   ],
   location: "Pokhara, Nepal",
   email: "geetapoudel784@gmail.com",
   emailLink: "mailto:geetapoudel784@gmail.com",
-  status: "Open to internship & junior developer opportunities",
+  status: "Open to MERN Stack & Full Stack Developer opportunities",
   
   hero: {
     greeting: "Hi, I'm",
     name: "Geeta Poudel",
     rolePrefix: "I'm a",
-    tagline: "I build responsive, user-focused web applications with React and modern JavaScript, while continuously expanding my skills across the MERN stack."
+    tagline: "Building scalable, high-performance web applications across the full MERN stack — from reactive frontends to robust REST APIs and databases."
   },
   
   about: {
